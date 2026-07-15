@@ -1,5 +1,6 @@
 from discount2 import discount
 import random
+from Group10_262052Q_1 import get_valid_qnty,get_valid_SN
 
 
 main_dish = {
@@ -53,8 +54,8 @@ def print_menu(menu, header):
 
 
 def add_to_cart(menu, msg):
-    dish_SN = int(input(f'Select a {msg} dish SN: '))
-    dish_qty = int(input('Enter the quantity required: '))
+    dish_SN = get_valid_SN()
+    dish_qty = get_valid_qnty()
     cart = menu[dish_SN].copy()
     cart.append(dish_qty)
     shopping_cart.append(cart)
