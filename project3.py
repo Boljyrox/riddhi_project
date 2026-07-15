@@ -100,17 +100,16 @@ def del_from_cart():
     while True:
         qty = input(f'Delete (a)ll {del_item[2]} items or enter qty to be deleted: ')
         if qty == 'a' or qty.isdigit():
-            break
-        else:
-            if qty > shopping_cart[cart_SN-1][2]:
+            if int(qty) > shopping_cart[cart_SN-1][2] or int(qty) < 0:
                 print('Enter number that is lesser than or equal to the number of items in your cart: ')
+            else:
+                break
 
     if qty == 'a':
         confirm = input(f'Confirm delete {del_item[0]}? (y/n) ')
         if confirm == 'y':
             shopping_cart.pop(cart_SN - 1)
     else:
-
         shopping_cart[cart_SN-1][2] -= int(qty)
         print(f'Removed {qty} no. of {del_item[0]}','\n')
 
