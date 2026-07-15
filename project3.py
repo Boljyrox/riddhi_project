@@ -73,7 +73,7 @@ def get_valid_qnty():
     while True:
         try:
             dish_qty = int(input(f'Enter quantity required:'))
-            if dish_qty > 1:
+            if dish_qty >= 1:
                 return dish_qty
             elif dish_qty < 1:
                 print('Please enter a valid quantity')
