@@ -1,3 +1,7 @@
+from discount2 import discount
+import random
+
+
 main_dish = {
     1: ['Ayam Bakar Set', 5.80],
     2: ['Dori Bakar Set', 5.90],
@@ -17,6 +21,23 @@ add_on = {1: ['Rice', 0.5],
           6: ['Fried/Grilled Chicken Wing', 1.50]}
 
 shopping_cart = []
+
+student_ids = ('000000W','261596Y','123456A','987654C','101010V','252525Z','969696R','111111Q','454545J','878787T','999999B','323232L','444444P')
+staff_ids = ('STA123','STA124','STA125','STA001','STA002','STA003','STA004','STA005','STA006','STA007','STA008','STA009','STA010')
+
+
+
+def student_or_staff():
+    id = input('Enter your student/staff ID. Leave blank if member of public: ').strip().upper()
+    while True:
+        if id in student_ids:
+            return 'student'
+        elif id in staff_ids:
+            return 'staff'
+        elif id == '':
+            return None
+        else:
+            print('ID not found!')
 
 
 def print_menu(menu, header):
@@ -55,16 +76,13 @@ def modify_cart():
 
 
 def print_shopping_cart():
-    total = 0
     print('=' * 80)
     print(f'{"Your Ordered Items":^80}')
     print('=' * 80)
     print(f"{'SN':<5}{'Ordered Items':<33}{'Price ($)':^15}{'Qty':^12}{'Sub-total($)':>10}")
     for sn, order in enumerate(shopping_cart):
         print(f'{sn + 1:<5}{order[0]:<33}{order[1]:^15}{order[2]:^12}{order[1] * order[2]:>10.1f}')
-        total += order[1] * order[2]
-    print(f'Total: ${total:<15.1f}')
-
+    
 
 def take_order():
 
@@ -84,13 +102,21 @@ def take_order():
 
         continue_order = input('\nContinue ordering more main sets? (y/n): ').strip().lower()
         if continue_order == 'n':
-            print("\nThank you for ordering!")
             break
+
+def final_receipt(group):
+    total = 0
+    for sn, order in enumerate(shopping_cart):
+        total += order[1] * order[2]
+    print('\n'*3)
+    print_shopping_cart()
+    discount(total,group)
 
 
 def main():
     take_order()
     print_shopping_cart()
+    queue = 0
 
 
     while True:
@@ -125,7 +151,9 @@ def main():
             print_shopping_cart()
 
         elif action == 'f':
-            print("\nOrder finalized. Thank you!")
+            group = student_or_staff()
+            final_receipt(group)
+            print("\nThank you for ordering! Order finalised.")
             break
 
         else:
