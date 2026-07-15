@@ -28,8 +28,9 @@ staff_ids = ('STA123','STA124','STA125','STA001','STA002','STA003','STA004','STA
 
 
 def student_or_staff():
-    id = input('Enter your student/staff ID. Leave blank if member of public: ').strip().upper()
+
     while True:
+        id = input('Enter your student/staff ID. Leave blank if member of public: ').strip().upper()
         if id in student_ids:
             return 'student'
         elif id in staff_ids:
@@ -82,11 +83,27 @@ def add_to_cart(menu, msg):
 
 
 def del_from_cart():
-    cart_SN = int(input(f'Select the dish SN to be deleted: '))
+    print(shopping_cart)
+    while True:
+        cart_SN = int(input(f'Select the dish SN to be deleted: '))
+        if cart_SN > len(shopping_cart):
+            print('Enter valid SN')
+        else:
+            break
     del_item = shopping_cart[cart_SN - 1]
-    confirm = input(f'Confirm delete {del_item[0]}? (y/n) ')
-    if confirm == 'y':
-        shopping_cart.pop(cart_SN - 1)
+
+    while True:
+        qty = input(f'Delete (a)ll {del_item[2]} items or enter qty to be deleted: ')
+        if qty == 'a' or qty.isdigit():
+            break
+
+    if qty == 'a':
+        confirm = input(f'Confirm delete {del_item[0]}? (y/n) ')
+        if confirm == 'y':
+            shopping_cart.pop(cart_SN - 1)
+    else:
+        shopping_cart[cart_SN-1][2] -= int(qty)
+        print(f'Removed {qty} no. of {del_item[0]}','\n')
 
 
 def modify_cart():
