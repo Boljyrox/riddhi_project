@@ -86,11 +86,11 @@ def del_from_cart():
     print(shopping_cart)
     while True:
         cart_SN = int(input(f'Select the dish SN to be deleted: '))
-        if cart_SN > len(shopping_cart):
+        if cart_SN > len(shopping_cart) or cart_SN <= 0:
             print('Enter valid SN')
         else:
             break
-    del_item = shopping_cart[cart_SN - 1]
+    del_item = shopping_cart[cart_SN-1]
 
     while True:
         qty = input(f'Delete (a)ll {del_item[2]} items or enter qty to be deleted: ')
