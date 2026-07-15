@@ -63,19 +63,28 @@
 # print(f"Final price: ${final_price:.2f}")
 
 #############################################
-student_ids = 
+import Group10_262052Q_1
+student_ids = ('000000W','261596Y','123456A','987654C','101010V','252525Z','969696R','111111Q','454545J','878787T','999999B','323232L','444444P')
+staff_ids = ('STA123','STA124','STA125','STA001','STA002','STA003','STA004','STA005','STA006','STA007','STA008','STA009','STA010')
+
 
 
 def student_or_staff():
-    price = float(input("Enter the original price: "))
-    group = input("Are you a student or staff ?(y/n): ")
-    return price, group
+    id = input("input your student/staff id. Leave blank or otherwise if member of public: ").strip().upper()
+    if id in student_ids:
+        group = 'student'
+    elif id in staff_ids:
+        group = 'staff'
+    else:
+        return None
+    return group
 
 
-def calculate_discount(price, group):
-    if group.strip().lower() == "student":
+def calculate_discount(group):
+    price = float(input('Enter total price of amount: '))
+    if group == "student":
         discount = 0.10  # 10%
-    elif group.strip().lower() == "staff":
+    elif group == "staff":
         discount = 0.05  # 5%
     else:
         discount = 0.00  # No discount
@@ -95,19 +104,32 @@ def final_payment(subtotal):
     return final_price, subtotal, gst
 
 def print_receipt():
-    print('=' * 45)
-    print(f'Receipt')
-    print('=' * 45)
-    final_payment(subtotal)
+    group = student_or_staff()
+    original_price, discount, discount_amount, subtotal = calculate_discount(group)
+    final_price, subtotal, gst = final_payment(subtotal)
+    print(f"""
+
+    {'=' * 45}
+    Receipt
+    {'=' * 45}
+    Original price: {original_price:.2f}
+    Discount: {discount*100:.0f}%
+    You saved: {discount_amount:.2f}
+    GST: ${gst:.2f}
+    Final price: ${final_price:.2f}
+
+    """)
+
+def main():
+    print_receipt()
 
 
-price, group = student_or_staff()
-original_price, discount, discount_amount, subtotal = calculate_discount(price, group)
-final_price, subtotal, gst = final_payment(subtotal)
 
-print_receipt()
-print(f"Original price: {price:.2f}")
-print(f"Discount: {discount*100:.0f}%")
-print(f"You saved: {discount_amount:.2f}")
-print(f'GST: ${gst:.2f}')
-print(f'Final price: ${final_price:.2f}')
+
+if __name__ == '__main__':
+    main()
+
+
+
+
+
