@@ -1,6 +1,5 @@
 from discount2 import discount
 import random
-from Group10_262052Q_1 import get_valid_qnty,get_valid_SN
 
 
 main_dish = {
@@ -52,10 +51,31 @@ def print_menu(menu, header):
             print(f'{item:<35}', end='')
         print()
 
+def get_valid_SN(menu, msg):
+    while True:
+        try:
+            dish_SN = int(input(f'Select a {msg} dish SN:'))
+            if dish_SN in menu:
+                return dish_SN
+            else:
+                print('Invalid dish SN.')
+        except ValueError:
+            print(f'Please select a valid dish.')
+
+def get_valid_qnty(menu, msg):
+    while True:
+        try:
+            dish_qty = int(input(f'Enter quantity required:'))
+            if dish_qty in menu:
+                return dish_qty
+            else:
+                print('Invalid quantity.')
+        except ValueError:
+            print(f'Please enter a valid quantity.')
 
 def add_to_cart(menu, msg):
-    dish_SN = get_valid_SN()
-    dish_qty = get_valid_qnty()
+    dish_SN = get_valid_SN(menu,msg)
+    dish_qty = get_valid_qnty(menu,msg)
     cart = menu[dish_SN].copy()
     cart.append(dish_qty)
     shopping_cart.append(cart)
