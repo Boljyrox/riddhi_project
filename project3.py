@@ -101,18 +101,27 @@ def del_from_cart():
         qty = input(f'Delete (a)ll {del_item[2]} items or enter qty to be deleted: ')
         if qty == 'a' or qty.isdigit():
             break
+        else:
+            if qty > shopping_cart[cart_SN-1][2]:
+                print('Enter number that is lesser than or equal to the number of items in your cart: ')
 
     if qty == 'a':
         confirm = input(f'Confirm delete {del_item[0]}? (y/n) ')
         if confirm == 'y':
             shopping_cart.pop(cart_SN - 1)
     else:
+
         shopping_cart[cart_SN-1][2] -= int(qty)
         print(f'Removed {qty} no. of {del_item[0]}','\n')
 
 
 def modify_cart():
-    cart_SN = int(input(f'Select the dish SN to be changed qty: '))
+    while True:
+        cart_SN = int(input(f'Select the dish SN to be deleted: '))
+        if cart_SN > len(shopping_cart) or cart_SN <= 0:
+            print('Enter valid SN')
+        else:
+            break
     change_item = shopping_cart[cart_SN - 1]
     qty = int(input(f'Enter the new quantity required for {change_item[0]}: '))
     shopping_cart[cart_SN - 1][2] = qty
